@@ -1,0 +1,34 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+<<<<<<< HEAD
+=======
+# Dependency directories
+>>>>>>> 19c026f (First)
+node_modules
+dist
+dist-ssr
+*.local
+
+<<<<<<< HEAD
+=======
+# Environment files
+.env
+
+>>>>>>> 19c026f (First)
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
