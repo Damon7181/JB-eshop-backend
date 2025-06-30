@@ -1,6 +1,7 @@
 const express = require("express");
 const Order = require("../models/Order.js");
-const admin = require("../firebase-admin-config.js"); // 👈 import admin
+const admin = require("../firebase-admin-config.js");
+const AdminToken = require("../models/AdminToken");
 
 const router = express.Router();
 
@@ -43,26 +44,49 @@ router.post("/", async (req, res) => {
   });
 
   try {
+    // const savedOrder = await newOrder.save();
+
+    // // 🔔 Send Push Notification to Admin
+    // const message = {
+    //   notification: {
+    //     title: "New Order Received",
+    //     body: `Order from ${customerName}`,
+    //   },
+    //   token: "eyLlQFw9zzGMVs--lgTP_R:APA91bF9EytcKHHEzPWQL2mthI7jocmVXpDjaevAkWSqKvzciWWJTxwMP3HzLOK8T2xsJ4vsE5lhukrMkyUmkMP4wLR_pSnuBaxa_xgSVydbOLLnIkX2LeE", // 🔁 Replace with actual token
+    // };
+
+    // admin
+    //   .messaging()
+    //   .send(message)
+    //   .then((response) => {
+    //     console.log("Push notification sent:", response);
+    //   })
+    //   .catch((err) => {
+    //     console.error("Push notification failed:", err);
+    //   });
     const savedOrder = await newOrder.save();
 
-    // 🔔 Send Push Notification to Admin
-    const message = {
+    const tokens = await AdminToken.find();
+
+    const notifications = tokens.map((t) => ({
       notification: {
-        title: "Hello",
+        title: "New Order Received",
         body: `Order from ${customerName}`,
       },
-      token: "eyLlQFw9zzGMVs--lgTP_R:APA91bF9EytcKHHEzPWQL2mthI7jocmVXpDjaevAkWSqKvzciWWJTxwMP3HzLOK8T2xsJ4vsE5lhukrMkyUmkMP4wLR_pSnuBaxa_xgSVydbOLLnIkX2LeE", // 🔁 Replace with actual token
-    };
+      token: t.token,
+    }));
 
-    admin
-      .messaging()
-      .send(message)
-      .then((response) => {
-        console.log("Push notification sent:", response);
-      })
-      .catch((err) => {
-        console.error("Push notification failed:", err);
-      });
+    for (const message of notifications) {
+      admin
+        .messaging()
+        .send(message)
+        .then((response) => {
+          console.log("✅ Notification sent:", response);
+        })
+        .catch((err) => {
+          console.error("❌ Failed to send notification:", err);
+        });
+    }
 
     res.status(201).json(savedOrder);
   } catch (err) {
@@ -71,4 +95,3 @@ router.post("/", async (req, res) => {
 });
 
 module.exports = router;
-
