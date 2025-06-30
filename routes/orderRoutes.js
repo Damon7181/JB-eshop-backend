@@ -92,6 +92,10 @@ router.post("/", async (req, res) => {
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
+  await Notification.create({
+    title: "New Order Received",
+    body: `Order from ${customerName}`,
+  });
 });
 
 module.exports = router;

@@ -21,6 +21,7 @@ const authRoutes = require("./routes/auth.js");
 const dashboardRoutes = require("./routes/dashboard.js");
 const orderRoutes = require("./routes/orderRoutes.js");
 const adminTokenRoutes = require("./routes/adminTokenRoutes.js");
+const notificationRoutes = require("./routes/notificationRoutes");
 
 app.use("/api/products", productRoutes);
 app.use("/api/categories", categoryRoutes);
@@ -28,6 +29,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/dashboard", dashboardRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/save-admin-token", adminTokenRoutes);
+app.use("/api/notifications", notificationRoutes);
 
 const PORT = 5000;
 app.listen(PORT, () => {
