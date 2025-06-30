@@ -51,7 +51,7 @@ router.post("/", async (req, res) => {
         title: "New Order Received",
         body: `Order from ${customerName}`,
       },
-      token: "ADMIN_DEVICE_FCM_TOKEN_HERE", // 🔁 Replace with actual token
+      token: "eyLlQFw9zzGMVs--lgTP_R:APA91bF9EytcKHHEzPWQL2mthI7jocmVXpDjaevAkWSqKvzciWWJTxwMP3HzLOK8T2xsJ4vsE5lhukrMkyUmkMP4wLR_pSnuBaxa_xgSVydbOLLnIkX2LeE", // 🔁 Replace with actual token
     };
 
     admin
