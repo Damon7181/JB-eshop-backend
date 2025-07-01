@@ -40,13 +40,13 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const dotenv = require("dotenv");
-const http = require("http"); // ✅ Added for Socket.IO support
+const https = require("https"); // ✅ Added for Socket.IO support
 const socketIo = require("socket.io"); // ✅ Socket.IO server
 
 dotenv.config();
 
 const app = express();
-const server = http.createServer(app); // ✅ Create HTTP server instance
+const server = https.createServer(app); // ✅ Create HTTP server instance
 
 const io = socketIo(server, {
   cors: {
