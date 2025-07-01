@@ -30,6 +30,7 @@ useEffect(() => {
     requestPermissionAndToken();
   }
 }, []);
+
 router.post("/register", async (req, res) => {
   try {
     const { name, email, password } = req.body;
