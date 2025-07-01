@@ -5,32 +5,6 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/User.js");
 const Register = require("../models/Register.js");
 
-const requestPermissionAndToken = async () => {
-  try {
-    const permission = await Notification.requestPermission();
-    if (permission !== "granted") return;
-    const registration = await navigator.serviceWorker.register(
-      "/firebase-messaging-sw.js"
-    );
-    const currentToken = await getToken(messaging, {
-      vapidKey: vapidKey,
-    });
-    if (currentToken) {
-      console.log("FCM Token:", currentToken);
-      setDeviceIdFCM(currentToken);
-    } else {
-      console.warn("No registration token available");
-    }
-  } catch (err) {
-    console.error("An error occurred while retrieving token.", err);
-  }
-};
-useEffect(() => {
-  if (typeof window !== "undefined" && messaging) {
-    requestPermissionAndToken();
-  }
-}, []);
-
 router.post("/register", async (req, res) => {
   try {
     const { name, email, password } = req.body;
